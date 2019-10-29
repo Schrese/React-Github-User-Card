@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: lightgrey;
 }
 
 .App-logo {
@@ -19,4 +20,18 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.my-information {
+  background: purple;
+  display: flex;
+}
+
+.text {
+    padding-top: 10%;
+}
+
+.followers-information {
+  display: flex;
+  flex-wrap: wrap;
 }
