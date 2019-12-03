@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: []
+    }
+  }
+
+  componentDidMount() {
+    
+  }
+
+  render() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +33,7 @@ function App() {
       </header>
     </div>
   );
+  }
 }
 
 export default App;
