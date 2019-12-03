@@ -4,6 +4,7 @@ import axios from 'axios';
 
 //components
 import Mine from './Mine';
+import Followers from './Followers';
 
 class App extends Component {
   constructor() {
@@ -30,7 +31,10 @@ class App extends Component {
     axios 
       .get('https://api.github.com/users/Schrese/followers')
       .then(res => {
-        console.log('frinds array', res)
+        console.log('followers array', res)
+        this.setState({
+          followers: res.data
+        })
       })
       .catch(err => console.log('error in friends axios', err))
   }
@@ -40,6 +44,8 @@ class App extends Component {
     <div className="App">
       <h1>Github Project</h1>
       <Mine user = {this.state.user} />
+      <h2>Followers: </h2>
+      <Followers followers = {this.state.followers} /> 
     </div>
   );
   }
