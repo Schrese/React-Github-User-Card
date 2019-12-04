@@ -11,7 +11,7 @@ class App extends Component {
     super();
     this.state = {
       user: {}, 
-      followers: []
+      followers: [], 
     }
   }
 
@@ -20,25 +20,47 @@ class App extends Component {
     axios
       .get('https://api.github.com/users/Schrese')
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.setState({
           user: res.data
         })
-      })
+      }) 
       .catch(err => console.log('axios call in componentdidmount', err))
-    
-    //friends list
-    axios 
+
+    axios
       .get('https://api.github.com/users/Schrese/followers')
       .then(res => {
-        console.log('followers array', res)
-        this.setState({
-          followers: res.data
+          // console.log('followers array', res)
+        this.followers = res.data;
+          
+        console.log('Where amd i breaking?', res.data)
+        var newArray = this.followers.map(i => {
+          console.log('What am I?', i)
+          return(  
+                  
+          axios.get(i.url)
+          .then(res => {
+             console.log(res.data) 
+            this.setState({followers: [res.data]})})
+        )
         })
+        console.log('followers', newArray)
       })
-      .catch(err => console.log('error in friends axios', err))
+        .catch(err => console.log('why you have no friends?', err))
+    
+    //friends list that works
+    // axios 
+    //   .get('https://api.github.com/users/Schrese/followers')
+    //   .then(res => {
+    //     console.log('followers array', res)
+    //     this.setState({
+    //       followers: res.data
+    //     })
+        
+    //   })
+    //   .catch(err => console.log('error in friends axios', err))
   }
-
+  
   render() {
   return (
     <div className="App">

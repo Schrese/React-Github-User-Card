@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Mine(props) {
-    console.log('props from Mine', props)
+    // console.log('props from Mine', props)
 
     return(
         <div>
