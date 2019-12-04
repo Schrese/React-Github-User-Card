@@ -12,6 +12,7 @@ class App extends Component {
     this.state = {
       user: {}, 
       followers: [], 
+      newText: ''
     }
   }
 
@@ -26,48 +27,48 @@ class App extends Component {
         })
       }) 
       .catch(err => console.log('axios call in componentdidmount', err))
-
-    axios
-      .get('https://api.github.com/users/Schrese/followers')
+      //this isn't working!!!!!
+    axios.get('https://api.github.com/users/Schrese')
       .then(res => {
-          // console.log('followers array', res)
-        this.followers = res.data;
-          
-        console.log('Where amd i breaking?', res.data)
-        var newArray = this.followers.map(i => {
-          console.log('What am I?', i)
-          return(  
-                  
-          axios.get(i.url)
-          .then(res => {
-             console.log(res.data) 
-            this.setState({followers: [res.data]})})
-        )
-        })
-        console.log('followers', newArray)
+        axios
+          .get(res.data.followers_url)
+          .then(resp => {
+            console.log('uhhhhhhh', resp.data);
+            // this.setState({
+            //   followers: resp.data
+            // })
+            let something = resp.data;
+            something.map(i => (
+              this.setState({newText: i.login})
+            ))
+          })
       })
         .catch(err => console.log('why you have no friends?', err))
-    
-    //friends list that works
-    // axios 
-    //   .get('https://api.github.com/users/Schrese/followers')
-    //   .then(res => {
-    //     console.log('followers array', res)
-    //     this.setState({
-    //       followers: res.data
-    //     })
         
-    //   })
-    //   .catch(err => console.log('error in friends axios', err))
+    // friends list that works
+    axios 
+      .get('https://api.github.com/users/Schrese/followers')
+      .then(res => {
+        console.log('followers array', res)
+        this.setState({
+          followers: res.data
+        })
+        
+      })
+      .catch(err => console.log('error in friends axios', err))
   }
   
+
   render() {
   return (
     <div className="App">
       <h1>Github Project</h1>
       <Mine user = {this.state.user} />
       <h2>Followers: </h2>
-      <Followers followers = {this.state.followers} /> 
+      <div className = 'cardcontain'>
+        <Followers followers = {this.state.followers} /> 
+        {/* <Followers newText = {this.state.newText} />  */}
+      </div>
     </div>
   );
   }

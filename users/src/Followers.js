@@ -2,15 +2,17 @@ import React from 'react';
 
 
 
+
 function Followers(props) {
     console.log('props from Followers', props)
+
     return(
         <div>
-            {/* <h2>{props.followers.name}</h2> */}
+            <h2>{props.followers.login}</h2>
             {props.followers.map(follower => (
                 <div key= {follower.id}>
                     <img src = {follower.avatar_url} alt = {follower.login} />
-                    <h2>{follower.name}</h2>
+                    <h2>{follower.login}</h2>
                     <h4>{follower.bio}</h4>
                 </div>
             ))}
@@ -52,3 +54,28 @@ export default Followers;
 //         console.log('followers', this.followers)
 //       })
 //       .catch(err => console.log('why you have no friends?', err))
+
+
+
+//the new way
+// axios
+//       .get('https://api.github.com/users/Schrese')
+//       .then(res => {  
+//         axios
+//           .get(res.data.followers_url)
+//           .then(resp => {
+//             console.log('first', resp)
+//             resp.data.forEach(f => {
+//               axios 
+//                 .get(f.url)
+//                 .then(r => {
+//                   console.log('second', r)
+                  
+//                   this.setState({
+//                     followers: r.data
+//                   })
+//                 })
+//             })
+//           })
+        
+//       })
